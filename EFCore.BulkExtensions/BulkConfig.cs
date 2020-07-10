@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
 
 namespace EFCore.BulkExtensions
 {
@@ -19,7 +22,16 @@ namespace EFCore.BulkExtensions
 
         public bool UseTempDB { get; set; }
 
+        public bool UniqueTableNameTempDb { get; set; } = true;
+
+        public bool TrackingEntities { get; set; }
+
+        public bool UseOnlyDataTable { get; set; }
+
         public bool WithHoldlock { get; set; } = true;
+
+        public bool CalculateStats { get; set; }
+        public StatsInfo StatsInfo { get; set; }
 
         public List<string> PropertiesToInclude { get; set; }
 
@@ -28,5 +40,20 @@ namespace EFCore.BulkExtensions
         public List<string> UpdateByProperties { get; set; }
 
         public SqlBulkCopyOptions SqlBulkCopyOptions { get; set; }
+
+        public SqliteConnection SqliteConnection { get; set; }
+        public SqliteTransaction SqliteTransaction { get; set; }
+
+        public Func<DbConnection, DbConnection> UnderlyingConnection { get; set; }
+        public Func<DbTransaction, DbTransaction> UnderlyingTransaction { get; set; }
+
+        internal OperationType OperationType { get; set; }
+    }
+
+    public class StatsInfo
+    {
+        public int StatsNumberInserted { get; set; }
+
+        public int StatsNumberUpdated { get; set; }
     }
 }
