@@ -46,7 +46,7 @@ namespace EFCore.BulkExtensions.Tests
         {
             var builder = new DbContextOptionsBuilder<TestContext>();
             var databaseName = nameof(EFCoreBulkTest);
-            var connectionString = $"Server=localhost;Database={databaseName};Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = $"Server=192.168.34.173;Database={databaseName};User Id=val_work;Password=val;MultipleActiveResultSets=true";
             builder.UseSqlServer(connectionString); // Can NOT Test with UseInMemoryDb (Exception: Relational-specific methods can only be used when the context is using a relational)
             return builder.Options;
         }

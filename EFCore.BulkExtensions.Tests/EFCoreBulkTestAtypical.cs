@@ -166,7 +166,9 @@ namespace EFCore.BulkExtensions.Tests
                         }
                     });
                 }
-                context.BulkInsert(entities);
+                context.BulkInsertOrUpdate(entities,
+                    new BulkConfig { UpdateByProperties = new List<string> { "ChangeLogId", "Audit_ChangedBy" } }
+                    );
             }
         }
     }
